@@ -1,0 +1,42 @@
+# File: pyproject.toml
+
+[
+build-system
+]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[
+project
+]
+name = "nexussim"
+version = "0.1.0"
+authors = [
+    { name = "Matthew R. Marcelino, PhD", email="matthew.marcelino@uvm.edu"},
+]
+description = "A framework for agent-based modeling of dynamic spatial processes."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "CC-BY-NC-SA-4.0" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Free for non-commercial use",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research/Education",
+    "Topic :: Scientific/Ecology",
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "rasterio",
+    "matplotlib",
+    "scikit-image",
+    "imageio",
+    "scipy",
+]
+
+[
+project.urls
+]
+Homepage = "https://github.com/[your-github-username]/nexussim"
+Issues = "https://github.com/[your-github-username]/nexussim/issues"
