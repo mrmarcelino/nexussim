@@ -1,19 +1,17 @@
-NexusSim
+# **NexusSim**
 
-NexusSim is a flexible and powerful Python framework for agent-based modeling of dynamic spatial processes. Designed for modularity and scientific reproducibility, it allows users to simulate complex emergent phenomena on customizable landscapes - from disease epidemics and invasive species to wildlife spread and information diffusion.
+**NexusSim** is a flexible and powerful Python framework for agent-based modeling of dynamic spatial processes. Designed for modularity and scientific reproducibility, it allows users to simulate complex emergent phenomena on customizable landscapes - from disease epidemics and invasive species to wildlife spread and information diffusion.
 
 The framework is built on a decoupled, file-based architecture: the simulation engine produces a series of GeoTIFF raster files, which are then consumed by a comprehensive analysis toolbox to generate plots, animations, and statistics.
 
-Key Features
+**Key Features**
+* Agent-Centric Simulation: Models complex behaviors by focusing on individual agent states and interactions (`nexussim.core`).
+* **Raster-Based I/O:** Works seamlessley with standard geospatial data formats for defining landscapes and initial conditions.
+* **Comprehensive Analysis Suite:** A rich set of tools (`nexussim.analysis`) to generate epidemic curves, animations, persistence "hotspot" maps, and calculate the rate of spread.
+* **Reproducibility First:** The file-based output creates a permanent, reproducible record of every simulation run.
+* **Scalable:** By not holding the entire simulation history in memory, NexusSim can hanlde longer and larger simulations.
 
-    * Agent-Centric Simulation: Models complex behaviors by         focusing on individual agent states and interactions (nexussim.core).
-
-    * Raster-Based I/O: Works seamlessley with standard geospatial data formats for defining landscapes and initial conditions.
-    * Comprehensive Analysis Suite: A rich set of tools (nexussim.analysis) to generate epidemic curves, animations, persistence "hotspot" maps, and calculate the rate of spread.
-    * Reproducibility First: The file-based output creates a permanent, reproducible record of every simulation run.
-    * Scalable: By not holding the entire simulation history in memory, NexusSim can hanlde longer and larger simulations.
-
-Installation
+**Installation**
 
 NexusSim is available on PyPI. Install it using pip:
 
@@ -23,14 +21,13 @@ To install the latest development version directly from GitHub:
 
 `pip install git+https://github.com/mrmarcelino/nexussim.git`
 
-Quickstart: From Simulation to Analysis
+**Quickstart: From Simulation to Analysis**
 
 This example demonstrates the complete NexusSim workflow. It will:
-
-    1. Create dummy input rasters for a landscape and initial infections.
-    2. Run a 50-step simulation, saving the output to a results/ directory.
-    3. Use the analysis module to generate an epidemic curve plot and an animated GIF from the results.
-
+1. Create dummy input rasters for a landscape and initial infections.
+2. Run a 50-step simulation, saving the output to a results/ directory.
+3. Use the analysis module to generate an epidemic curve plot and an animated GIF from the results.
+```
 import os
 import shutil
 import numpy as np
@@ -44,7 +41,8 @@ import matplotlib.image as mpimg
 # |- analysis.py
 from nexussim.core import DiseaseModel
 import nexussim.analysis as nxs_analysis
-
+```
+```
 # Helper function to create dummy input data
 def create_dummy_raster(path, width, height, data, crs='EPSG:3857'):
   """
@@ -62,7 +60,8 @@ def create_dummy_raster(path, width, height, data, crs='EPSG:3857'):
   }
   with rasterio.open(path, 'w', **profile) as dst:
     dst.write(data.astype(profile['dtype']), 1)
-
+```
+```
 # 1. Setup Environment and Input Data
 print("--- Setting up simulation environment ---")
 # Create directories for inputs, simulation outputs, and analysis outputs
@@ -125,25 +124,23 @@ if tif_files:
   plt.show()
 else:
   print("Analysis skipped: No simulation files were found.")
-
-The NexusSim Workflow
+```
+**The NexusSim Workflow**
 
 NexusSim is intentionally designed to separate the simulation from the analysis. This provides several key advantages for scientific modeling:
+1. Reproducibility: The output rasters serve as a permanent, shareable record of the simulation.
+2. Flexibility: You can run multiple analyses on a single simulation output without having to re-run the entire model.
+3. Extensibility: It's easy to write your own custom analysis functions that operate on the standardized GeoTIFF outputs.
+The standard workflow looks like this: `[Input Rasters]` → `nexussim.core.DiseaseModel` → `[Output Rasters]` → `nexussim.analysis` → `[Plots, GIFs, & Stats]`
 
-    1. Reproducibility: The output rasters serve as a permanent, shareable record of the simulation.
-    2. Flexibility: You can run multiple analyses on a single simulation output without having to re-run the entire model.
-    3. Extensibility: It's easy to write your own custom analysis functions that operate on the standardized GeoTIFF outputs.
-The standard workflow looks like this: [Input Rasters] → nexussim.core.DiseaseModel → [Output Rasters] → nexussim.analysis → [Plots, GIFs, & Stats]
+**Core Components**
+* `nexussim.core`: Contains the Agent and DiseaseModel classes. This is the heart of the simulation engine responsible for running the model and saving the state at each time step.
+* `nexussim.analysis`: A toolbox of standalone functions that take a list of raster file paths as input and produce high-level outputs like plots, statistics, or animations.
 
-Core Components
-
-    * nexussim.core: Contains the Agent and DiseaseModel classes. This is the heart of the simulation engine responsible for running the model and saving the state at each time step.
-    * nexussim.analysis: A toolbox of standalone functions that take a list of raster file paths as input and produce high-level outputs like plots, statistics, or animations.
-
-Contributing
+**Contributing**
 
 Contributions are welcome! If you have ideas for new features, analysis tools, or improvements, please open an issue or submit a pull request.
 
-License
+**License**
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) - see the LICENSE.md file for details.
